@@ -4,18 +4,15 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: './',
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, 'src'),
 		},
 	},
-	plugins: [
-		vue()，
-	],
+	plugins: [vue()],
 	server: {
 		port: 3000,
-		open: false,
+		open: true,
 		proxy: {
 			'/api': {
 				target: 'http://localhost:3001',
