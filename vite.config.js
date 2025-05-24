@@ -11,50 +11,7 @@ export default defineConfig({
 		},
 	},
 	plugins: [
-		vue(),
-		{
-			name: 'copy-vr-folder',
-			closeBundle() {
-				// 获取当前文件的目录
-				const __filename = fileURLToPath(import.meta.url)
-				const __dirname = dirname(__filename)
-				
-				// 创建目标目录
-				const distDir = resolve(__dirname, 'dist')
-				const vrDir = resolve(distDir, 'vr')
-				mkdirSync(vrDir, { recursive: true })
-				
-				// 复制vr文件夹
-				const sourceDir = resolve(__dirname, 'vr')
-				const copyDir = (src, dest) => {
-					const fs = require('fs')
-					const path = require('path')
-					
-					// 确保目标目录存在
-					if (!fs.existsSync(dest)) {
-						fs.mkdirSync(dest, { recursive: true })
-					}
-					
-					// 读取源目录
-					const entries = fs.readdirSync(src, { withFileTypes: true })
-					
-					for (const entry of entries) {
-						const srcPath = path.join(src, entry.name)
-						const destPath = path.join(dest, entry.name)
-						
-						if (entry.isDirectory()) {
-							// 递归复制子目录
-							copyDir(srcPath, destPath)
-						} else {
-							// 复制文件
-							fs.copyFileSync(srcPath, destPath)
-						}
-					}
-				}
-				
-				copyDir(sourceDir, vrDir)
-			}
-		}
+		vue()，
 	],
 	server: {
 		port: 3000,
@@ -66,5 +23,7 @@ export default defineConfig({
 				rewrite: (path) => path.replace(/^\/api/, '')
 			}
 		}
-	}
+	},
+	// 配置静态资源目录
+	publicDir: 'vr'
 })
