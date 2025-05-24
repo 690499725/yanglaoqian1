@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node copy-vr-folder.mjs",
     "serve": "vite preview"
   },
   "dependencies": {
